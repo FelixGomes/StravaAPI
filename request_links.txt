@@ -6,15 +6,15 @@ https://www.strava.com/oauth/authorize?client_id=your_client_id&redirect_uri=htt
 2) Exchange authorization code for access token & refresh token
 Paste the below code in a POST request at Postman
 
-https://www.strava.com/oauth/token?client_id=insertHere&client_secret=insertHere
-&code=insertHere&grant_type=authorization_code
+https://www.strava.com/oauth/token?client_id=insert_here&client_secret=insert_here
+&code=insert_here&grant_type=authorization_code
 
 3) View your activities using the access token just received
 Run the code below in a GET request or browser
 
-https://www.strava.com/api/v3/athlete/activities?access_token=insertHere
+https://www.strava.com/api/v3/athlete/activities?access_token=insert_here
 
 3) Use refresh token to get new access tokens
 
-https://www.strava.com/oauth/token?client_id=insertHere&client_secret=insertHere
-&refresh_token=insertHere&grant_type=refresh_token
+https://www.strava.com/oauth/token?client_id=insert_here&client_secret=insert_here
+&refresh_token=insert_here&grant_type=refresh_token

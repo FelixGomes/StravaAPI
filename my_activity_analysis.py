@@ -4,13 +4,14 @@ import urllib3
 urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 import pandas as pd
 from pandas import json_normalize
-import matplotlib.pyplot as plt
 from tqdm import tqdm
 import time
 import random
+import save_json
+import data_viz
 
 auth_url = "https://www.strava.com/oauth/token"
-activites_url = "https://www.strava.com/api/v3/athlete/activities"
+activites_url = "https://www.strava.com/api/v3/activities"
 
 payload = {
     "client_id": "xxx",
@@ -43,7 +44,7 @@ while page_non_empty:
 print("\n", len(activities_df), "activities downloaded")
 
 # activities_df = json_normalize(activities_df)
-# print(activities_df.columns)  # See a list of all columns in the table
+print(activities_df.columns)  # See a list of all columns in the table
 # print(activities_df.shape)  # See the dimensions of the table.
 
 # Create new dataframe with only columns I care about
@@ -52,10 +53,13 @@ cols = [
     "type",
     "distance",
     "moving_time",
+    "elapsed_time",
     "average_speed",
     "max_speed",
     "total_elevation_gain",
     "start_date_local",
+    "average_watts",
+    "kilojoules",
 ]
 # Create a new DataFrame by copying the selected columns from activities_df
 activities = activities_df[cols].copy()
@@ -69,26 +73,16 @@ activities["start_date_local"] = activities["start_date_local"].dt.date
 # Display the first 5 rows
 print(activities.head(5))
 
-# --------DATA VIZ--------
 bike_rides = activities.loc[activities["type"] == "Ride"]
-
-# Create a bar plot to visualize the average velocity by year
-plt.figure(figsize=(10, 6))  # Adjust the figure size as needed
-
-
 # Extract the year and create a new column called 'year'
 bike_rides["start_date_local"] = pd.to_datetime(
     bike_rides["start_date_local"], format="%Y-%m-%d"
 )
 bike_rides["year"] = bike_rides["start_date_local"].dt.year
 
-average_velocity_by_year = bike_rides.groupby("year")["average_speed"].mean() * 3.6
-average_velocity_by_year.plot(kind="bar", color="skyblue")
+# convert to km/h
+average_speed_converted = bike_rides.groupby("year")["average_speed"].mean() * 3.6
 
-plt.title("Average Speed by Year")
-plt.xlabel("Year")
-plt.ylabel("Average Speed (km/h)")  # You can adjust the ylabel as needed
-plt.xticks(rotation=45)  # Rotate x-axis labels for better readability
+data_viz.create_visualization(average_speed_converted)
 
-plt.tight_layout()  # Adjust layout to prevent clipping of labels
-plt.show()
+save_json.convert_df_to_json(bike_rides)
