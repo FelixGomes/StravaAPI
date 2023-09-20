@@ -2,4 +2,5 @@ Projeto de coleta e análise dos dados do meu perfil no Strava utilizando o Stra
 
 Print do Dashboard criado no Power BI após definir métricas para análise de dados das minhas corridas de bicleta
 
-![image](https://github.com/FelixGomes/StravaAPI/assets/75041906/8fc376c2-2a63-4ef1-a44c-ee0571d1faf9)
+![image](https://github.com/FelixGomes/StravaAPI/assets/75041906/1fd53655-65ee-41df-aa3f-b3b351109f70)
+
