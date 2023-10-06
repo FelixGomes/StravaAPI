@@ -14,7 +14,13 @@ Run the code below in a GET request or browser
 
 https://www.strava.com/api/v3/athlete/activities?access_token=insert_here
 
-3) Use refresh token to get new access tokens
+4) Use refresh token to get new access tokens
 
 https://www.strava.com/oauth/token?client_id=insert_here&client_secret=insert_here
 &refresh_token=insert_here&grant_type=refresh_token
+
+5) To get the detailed activity, you should have the id of the activity. 
+This allows you to have access to information like calories, watts, etc.
+See the StravaAPI documentation to more details
+
+https://www.strava.com/api/v3/activities/{activity_id}?include_all_efforts=true"
